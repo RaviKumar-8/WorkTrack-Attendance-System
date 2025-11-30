@@ -9,23 +9,27 @@ const EmployeeDashboard = () => {
     const [status, setStatus] = useState('Not Checked In');
     const [logs, setLogs] = useState([]);
 
-    // పేజీ లోడ్ అవ్వగానే పాత హిస్టరీ తెచ్చుకోవాలి
+    // get old history after page loding
     useEffect(() => {
         fetchHistory();
     }, []);
 
     const fetchHistory = async () => {
         try {
-            const { data } = await API.get('/attendance/my-history'); // [cite: 14]
+            // here we send user.id in URL 
+            const { data } = await API.get(`/attendance/my-history/${user.id}`);
+            
             setLogs(data);
             
-            // ఈ రోజు అటెండెన్స్ వేశారా లేదా అని చెక్ చేద్దాం
+            // Logic to check today's status
             const today = new Date().toISOString().split('T')[0];
             const todayRecord = data.find(log => log.date === today);
             
             if (todayRecord) {
                 if (todayRecord.checkOutTime) setStatus('Completed');
                 else setStatus('Checked In');
+            } else {
+                setStatus('Not Checked In'); // reset if record not came
             }
         } catch (err) {
             console.error("Failed to fetch history");

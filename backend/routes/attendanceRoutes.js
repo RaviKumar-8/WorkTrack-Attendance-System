@@ -65,7 +65,11 @@ router.get('/my-history', async (req, res) => {
     
     // Better way for your level:
     try {
-        const logs = await Attendance.find().sort({ createdAt: -1 }); // Get all for now (Testing)
+        const { userId } = req.params; // URL నుంచి ID ని తీసుకుంటున్నాం
+        
+        // డేటాబేస్ లో ఆ userId ఉన్న రికార్డ్స్ మాత్రమే వెతుకుతాం
+        const logs = await Attendance.find({ userId }).sort({ createdAt: -1 });
+        
         res.json(logs);
     } catch (err) {
         res.status(500).json({ error: err.message });
