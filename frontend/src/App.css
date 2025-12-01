@@ -1,38 +1,229 @@
-.App {
-  text-align: center;
+/* src/App.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  background-color: #e0e5ec; /* Neumorphic Background */
+  color: #4a4a4a;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+/* 3D Container */
+.auth-container, .dashboard-container {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+/* 3D Card Effect */
+.auth-card, .stat-card, .profile-card, .table-container {
+  background: #e0e5ec;
+  padding: 40px;
+  border-radius: 20px;
+  /* 3D Shadow: Light top-left, Dark bottom-right */
+  box-shadow: 9px 9px 16px rgb(163,177,198,0.6), 
+              -9px -9px 16px rgba(255,255,255, 0.5);
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Hover Effect for Cards */
+.stat-card:hover, .profile-card:hover {
+  transform: translateY(-5px);
+}
+
+/* 3D Input Fields */
+.form-input, .form-select {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  background: #e0e5ec;
+  /* Inset Shadow looks like pressed inside */
+  box-shadow: inset 6px 6px 10px 0 rgba(163,177,198, 0.7), 
+              inset -6px -6px 10px 0 rgba(255,255,255, 0.8);
+  font-size: 16px;
+  margin-bottom: 20px;
+  outline: none;
+  transition: all 0.3s ease;
+  color: #555;
+}
+
+.form-input:focus {
+  box-shadow: inset 3px 3px 5px 0 rgba(163,177,198, 0.9), 
+              inset -3px -3px 5px 0 rgba(255,255,255, 0.9);
+  color: #000;
+}
+
+/* 3D Buttons */
+.btn-primary, .btn-logout {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  background: #e0e5ec;
+  color: #667eea;
+  /* Pop out effect */
+  box-shadow: 6px 6px 10px 0 rgba(163,177,198, 0.7), 
+              -6px -6px 10px 0 rgba(255,255,255, 0.8);
+  transition: all 0.2s ease;
+}
+
+/* Button Hover (Highlight) */
+.btn-primary:hover, .btn-logout:hover {
+  transform: translateY(-2px);
+  color: #5a6fd6;
+  box-shadow: 8px 8px 12px 0 rgba(163,177,198, 0.8), 
+              -8px -8px 12px 0 rgba(255,255,255, 0.9);
+}
+
+/* Button Click (Press Down) */
+.btn-primary:active, .btn-logout:active {
+  transform: translateY(2px);
+  box-shadow: inset 4px 4px 6px 0 rgba(163,177,198, 0.7), 
+              inset -4px -4px 6px 0 rgba(255,255,255, 0.8);
+}
+
+/* Profile Section Styles */
+.profile-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+}
+.profile-label { font-weight: bold; color: #555; }
+.profile-value { color: #667eea; font-weight: 600; }
+
+/* Table 3D */
+.modern-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px; /* Space between rows */
+}
+
+.modern-table th { padding: 15px; text-align: left; color: #555; }
+.modern-table td {
+  background: #e0e5ec;
+  padding: 15px;
+  box-shadow: 3px 3px 6px rgba(163,177,198,0.4), -3px -3px 6px rgba(255,255,255,0.4);
+  border-radius: 10px;
+}
+
+/* src/App.css Updates */
+
+/* Header Bar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 15px 30px;
+  background: #e0e5ec;
+  border-radius: 20px;
+  margin-bottom: 30px;
+  box-shadow: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.5);
+}
+
+/* Profile Icon Container */
+.profile-menu-container {
+  position: relative; /* Dropdown దీని కింద రావడానికి */
+  cursor: pointer;
+}
+
+/* Round Profile Button (3D) */
+.profile-icon-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #e0e5ec;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  border: none;
+  box-shadow: 5px 5px 10px rgba(163,177,198,0.6), -5px -5px 10px rgba(255,255,255, 0.8);
+  transition: all 0.3s ease;
+}
+
+.profile-icon-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 7px 7px 12px rgba(163,177,198,0.8), -7px -7px 12px rgba(255,255,255, 0.9);
+}
+
+/* Dropdown Menu (Hidden by default) */
+.profile-dropdown {
+  position: absolute;
+  top: 65px;
+  right: 0;
+  background: #e0e5ec;
+  width: 280px;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.5);
+  z-index: 100; /* మిగతా వాటి కంటే పైన ఉండాలి */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dropdown-item {
+  font-size: 14px;
+  color: #555;
+  border-bottom: 1px solid #d1d9e6;
+  padding-bottom: 8px;
+  margin-bottom: 5px;
+}
+
+.dropdown-item strong {
+  color: #333;
+  display: block;
+}
+
+/* --- FIXES FOR LAYOUT --- */
+
+/* 1. బాక్సులు పక్కపక్కన రావడానికి */
+.stats-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  flex-wrap: wrap; /* స్క్రీన్ చిన్నగా ఉంటే కిందకి రావాలి */
+  margin-top: 20px;
+}
+
+/* 2. కార్డ్స్ సైజు సరిగ్గా ఉండటానికి */
+.stat-card {
+  flex: 1; /* ఉన్న స్పేస్ లో సమానంగా సర్దుకుంటాయి */
+  min-width: 250px;
+  max-width: none; /* పాత 500px లిమిట్ తీసేసాం */
+  text-align: center;
+}
+
+/* 3. టేబుల్ బాక్స్ వెడల్పు పెంచడానికి */
+.table-container {
+  width: 100%;
+  max-width: 1200px; /* టేబుల్ కోసం పెద్ద సైజు */
+  overflow-x: auto; /* టేబుల్ మరీ పెద్దదైతే స్క్రోల్ వస్తుంది */
+  margin: 30px auto; /* సెంటర్ లోకి వస్తుంది */
+  padding: 30px;
+}
+
+/* టేబుల్ లోపల అక్షరాలు క్లియర్ గా కనిపించడానికి */
+.modern-table {
+  width: 100%;
+  min-width: 800px; /* టేబుల్ మరీ ఇరుకుగా అవ్వకుండా */
 }

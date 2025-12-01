@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import API from '../services/api';
 import useAuthStore from '../store/authStore';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import '../App.css';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -14,36 +15,31 @@ const Login = () => {
         try {
             const { data } = await API.post('/auth/login', { email, password });
             login(data.user, data.token);
-            alert('Login Successful!');
-            
-            // Role ని బట్టి వేరే పేజీకి పంపాలి
-            if (data.user.role === 'manager') {
-                navigate('/manager-dashboard');
-            } else {
-                navigate('/employee-dashboard');
-            }
+            if (data.user.role === 'manager') navigate('/manager-dashboard');
+            else navigate('/employee-dashboard');
         } catch (err) {
             alert('Login Failed: ' + (err.response?.data?.message || 'Error'));
         }
     };
 
     return (
-        <div style={{ padding: '50px', textAlign: 'center' }}>
-            <h2>Attendance System Login</h2>
-            <form onSubmit={handleSubmit} style={{ display: 'inline-block', textAlign: 'left' }}>
-                <div>
-                    <label>Email:</label><br/>
-                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        <div className="auth-container">
+            <div className="auth-card">
+                <h2>Welcome Back</h2>
+                <p style={{marginBottom: '20px', color: '#666'}}>Please login to your account</p>
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <input className="form-input" type="email" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                    </div>
+                    <div className="form-group">
+                        <input className="form-input" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                    </div>
+                    <button className="btn-primary" type="submit">Login</button>
+                </form>
+                <div className="link-text">
+                    Don't have an account? <Link to="/register">Register here</Link>
                 </div>
-                <br/>
-                <div>
-                    <label>Password:</label><br/>
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                </div>
-                <br/>
-                <button type="submit">Login</button>
-            </form>
-            <p>Don't have an account? <a href="/register">Register here</a></p>
+            </div>
         </div>
     );
 };

@@ -55,21 +55,10 @@ router.post('/checkout', async (req, res) => {
 });
 
 // Get My History
-router.get('/my-history', async (req, res) => {
-    // Note: Real project lo Token nundi userId teeskovali.
-    // Ikkada test kosam hardcode chestunnam ledha query param vaadochu.
-    // Kani frontend lo manam Token pampatledhu kabatti, simple ga cheddam:
-    
-    // TEMPORARY FIX: Frontend nundi userId header lo pampiddam later.
-    // Ippudu easy ga undadaniki: Last lo add chesina record test chestam.
-    
-    // Better way for your level:
+router.get('/my-history/:userId', async (req, res) => {
     try {
-        const { userId } = req.params; // URL నుంచి ID ని తీసుకుంటున్నాం
-        
-        // డేటాబేస్ లో ఆ userId ఉన్న రికార్డ్స్ మాత్రమే వెతుకుతాం
+        const { userId } = req.params;
         const logs = await Attendance.find({ userId }).sort({ createdAt: -1 });
-        
         res.json(logs);
     } catch (err) {
         res.status(500).json({ error: err.message });
