@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import API from '../services/api';
 import { useNavigate, Link } from 'react-router-dom';
 import '../App.css';
@@ -9,6 +9,10 @@ const Register = () => {
     });
     const [confirmPassword, setConfirmPassword] = useState('');
     const navigate = useNavigate();
+
+    useEffect(() =>{
+        document.title = "EAS Register";
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();

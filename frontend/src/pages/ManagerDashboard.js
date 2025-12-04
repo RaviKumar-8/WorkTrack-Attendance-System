@@ -15,6 +15,7 @@ const ManagerDashboard = () => {
     const [showProfile, setShowProfile] = useState(false);
 
     useEffect(() => {
+        document.title = "Manager Dashbord";
         fetchAllAttendance();
     }, []);
 

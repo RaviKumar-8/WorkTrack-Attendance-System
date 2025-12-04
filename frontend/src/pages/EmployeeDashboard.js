@@ -17,6 +17,8 @@ const EmployeeDashboard = () => {
     const [stats, setStats] = useState({ present: 0, late: 0, absent: 0, totalHours: 0 });
 
     useEffect(() => {
+        document.title="Employee Dashbord";
+
         if(user) {
             fetchHistory();
         }
@@ -97,7 +99,7 @@ const EmployeeDashboard = () => {
         <div className="dashboard-container">
             {/* Navbar */}
             <div className="navbar">
-                <h2 style={{color: '#667eea', margin: 0}}>WorkTrack 🚀</h2>
+                <h2 style={{color: '#667eea', margin: 0}}>Employee Portal 👨‍💻</h2>
                 
                 <div className="profile-menu-container">
                     <button className="profile-icon-btn" onClick={() => setShowProfile(!showProfile)}>👤</button>
@@ -106,8 +108,9 @@ const EmployeeDashboard = () => {
                         <div className="profile-dropdown">
                             <h4 style={{textAlign:'center', marginBottom:'10px', color: '#667eea'}}>My Profile</h4>
                             <div className="dropdown-item">Name: <strong>{user?.name}</strong></div>
+                            <div className="dropdown-item">Id: <strong>{user?.employeeId || 'Not Generated'}</strong></div>
                             <div className="dropdown-item">Dept: <strong>{user?.department || 'Not Assigned'}</strong></div>
-                            
+                            <div className="dropdown-item">Email: <strong>{user?.email}</strong></div>
                             <button 
                                 onClick={() => { setShowSummary(true); setShowProfile(false); }} 
                                 className="btn-primary" 

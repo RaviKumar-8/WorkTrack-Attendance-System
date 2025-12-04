@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import API from '../services/api';
 import useAuthStore from '../store/authStore';
 import { useNavigate, Link } from 'react-router-dom';
@@ -9,6 +9,10 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const login = useAuthStore((state) => state.login);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        document.title = "EAS Login";
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
